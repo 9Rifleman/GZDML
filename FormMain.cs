@@ -4,6 +4,7 @@ using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Net.NetworkInformation;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace GZDML
 {
@@ -18,6 +19,9 @@ namespace GZDML
         public string argTeams = string.Empty;
         public string argJump = string.Empty;
         public string argCrouch = string.Empty;
+        public string argFLimit = string.Empty;
+        public string argTLimit = string.Empty;
+        public string argNoMonsters = string.Empty;
 
         public FormMain()
         {
@@ -33,7 +37,14 @@ namespace GZDML
             string appPath = Path.Combine(GZDPath, "gzdoom.exe");
             GetHostArgs();
             GetJoinArgs();
-            string args = argHost + argMode + argMapNo;
+            string args = argHost + argMode + argMapNo + argFLimit + argTLimit + argAltDM + argJump + argCrouch + argNoMonsters;
+
+            string x = @"C:\Users\Rifleman\Desktop\gzdml.txt";
+            using (StreamWriter writer = new StreamWriter(x))
+            {
+                writer.WriteLine(args);
+            }
+
             if (rbHost.Checked)
                 Process.Start(appPath, args);
             else
@@ -45,17 +56,35 @@ namespace GZDML
         {
             if (rbHost.Checked)
             {
-                argHost = "-host " + numPlayers.Value.ToString();
+                argHost = "-host " + numPlayers.Value.ToString();   //Host & Players
 
-                if (rbDM.Checked)
+                if (rbDM.Checked)                                   //Mode
                     argMode = " -deathmatch";
                 else
                     argMode = " -coop";
-                
-                string map = numMapNo.Value.ToString();
+
+                string map = numMapNo.Value.ToString();             //Map no.
                 if (numMapNo.Value < 10)
                     map = "0" + numMapNo.Value.ToString();
                 argMapNo = " -warp " + map;
+
+                if (cbAltDM.Checked)                                //Alternate DM flags
+                    argAltDM = " -altdeath";
+
+                if (cbJump.Checked)                                 //Allow jumps
+                    argJump = " +sv_allowjump 1";
+
+                if (cbCrouch.Checked)                               //Allow duck
+                    argCrouch = " +sv_allowcrouch 1";
+
+                if (numFLimit.Value > 0)                            //Fraglimit
+                    argFLimit = " +fraglimit " + numFLimit.Value.ToString();
+
+                if (numTLimit.Value > 0)                            //Time limit
+                    argTLimit = " +timelimit " + numTLimit.Value.ToString();
+
+                if (cbMonsters.Checked)                             //No monsters
+                    argNoMonsters = " +sv_nomonsters 1";
             }
             else
                 return;
@@ -91,17 +120,21 @@ namespace GZDML
             labelPlayers.Enabled = true;
             labelMapNo.Enabled = true;
             labelSkill.Enabled = true;
+            labelFLimit.Enabled = true;
+            labelTLimit.Enabled = true;
             rbDM.Enabled = true;
             numPlayers.Enabled = true;
             numMapNo.Enabled = true;
             numSkill.Enabled = true;
+            numFLimit.Enabled = true;
+            numTLimit.Enabled = true;
             rbCoop.Enabled = true;
             buttonStart.Visible = true;
             buttonStart.Text = "Host game";
             cbAltDM.Enabled = true;
             cbCrouch.Enabled = true;
             cbJump.Enabled = true;
-            cbTeam.Enabled = true;
+            cbMonsters.Enabled = true;
         }
 
         private void HostGameDisable()
@@ -110,15 +143,19 @@ namespace GZDML
             labelPlayers.Enabled = false;
             labelMapNo.Enabled = false;
             labelSkill.Enabled = false;
+            labelFLimit.Enabled = false;
+            labelTLimit.Enabled = false;
             rbDM.Enabled = false;
             rbCoop.Enabled = false;
             numPlayers.Enabled = false;
             numMapNo.Enabled = false;
             numSkill.Enabled = false;
+            numFLimit.Enabled = false;
+            numTLimit.Enabled = false;
             cbAltDM.Enabled = false;
             cbCrouch.Enabled = false;
             cbJump.Enabled = false;
-            cbTeam.Enabled = false;
+            cbMonsters.Enabled = false;
         }
 
         private void JoinGameEnable()

@@ -14,6 +14,10 @@ namespace GZDML
         public string argPlayers = string.Empty;
         public string argMapNo = string.Empty;
         public string argIP = string.Empty;
+        public string argAltDM = string.Empty;
+        public string argTeams = string.Empty;
+        public string argJump = string.Empty;
+        public string argCrouch = string.Empty;
 
         public FormMain()
         {
@@ -27,9 +31,40 @@ namespace GZDML
         {
             string GZDPath = Directory.GetCurrentDirectory();
             string appPath = Path.Combine(GZDPath, "gzdoom.exe");
-            string args = " -host 2 -coop -warp 03";
-            Process.Start(appPath, args);
+            GetHostArgs();
+            GetJoinArgs();
+            string args = argHost + argMode + argMapNo;
+            if (rbHost.Checked)
+                Process.Start(appPath, args);
+            else
+                Process.Start(appPath, "-join " + argIP);
             this.Close();
+        }
+
+        private void GetHostArgs()
+        {
+            if (rbHost.Checked)
+            {
+                argHost = "-host " + numPlayers.Value.ToString();
+
+                if (rbDM.Checked)
+                    argMode = " -deathmatch";
+                else
+                    argMode = " -coop";
+                
+                string map = numMapNo.Value.ToString();
+                if (numMapNo.Value < 10)
+                    map = "0" + numMapNo.Value.ToString();
+                argMapNo = " -warp " + map;
+            }
+            else
+                return;
+        }
+
+        private void GetJoinArgs()
+        {
+            if (rbJoin.Checked)
+                argIP = tbIP.Text.ToString();
         }
 
         private void GetHostLANIP()
@@ -63,6 +98,10 @@ namespace GZDML
             rbCoop.Enabled = true;
             buttonStart.Visible = true;
             buttonStart.Text = "Host game";
+            cbAltDM.Enabled = true;
+            cbCrouch.Enabled = true;
+            cbJump.Enabled = true;
+            cbTeam.Enabled = true;
         }
 
         private void HostGameDisable()
@@ -76,6 +115,10 @@ namespace GZDML
             numPlayers.Enabled = false;
             numMapNo.Enabled = false;
             numSkill.Enabled = false;
+            cbAltDM.Enabled = false;
+            cbCrouch.Enabled = false;
+            cbJump.Enabled = false;
+            cbTeam.Enabled = false;
         }
 
         private void JoinGameEnable()

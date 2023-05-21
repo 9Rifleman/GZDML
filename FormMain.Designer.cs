@@ -35,6 +35,12 @@
             tbIP = new TextBox();
             panelJoin = new Panel();
             panelHost = new Panel();
+            cbCrouch = new CheckBox();
+            cbJump = new CheckBox();
+            cbTeam = new CheckBox();
+            cbAltDM = new CheckBox();
+            numSkill = new NumericUpDown();
+            labelSkill = new Label();
             numMapNo = new NumericUpDown();
             labelMapNo = new Label();
             numPlayers = new NumericUpDown();
@@ -42,13 +48,11 @@
             rbCoop = new RadioButton();
             rbDM = new RadioButton();
             labelMode = new Label();
-            labelSkill = new Label();
-            numSkill = new NumericUpDown();
             panelJoin.SuspendLayout();
             panelHost.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)numSkill).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numMapNo).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numPlayers).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)numSkill).BeginInit();
             SuspendLayout();
             // 
             // rbHost
@@ -114,6 +118,10 @@
             // panelHost
             // 
             panelHost.BorderStyle = BorderStyle.FixedSingle;
+            panelHost.Controls.Add(cbCrouch);
+            panelHost.Controls.Add(cbJump);
+            panelHost.Controls.Add(cbTeam);
+            panelHost.Controls.Add(cbAltDM);
             panelHost.Controls.Add(numSkill);
             panelHost.Controls.Add(labelSkill);
             panelHost.Controls.Add(numMapNo);
@@ -128,9 +136,68 @@
             panelHost.Size = new Size(209, 191);
             panelHost.TabIndex = 7;
             // 
+            // cbCrouch
+            // 
+            cbCrouch.AutoSize = true;
+            cbCrouch.Location = new Point(99, 150);
+            cbCrouch.Name = "cbCrouch";
+            cbCrouch.Size = new Size(96, 19);
+            cbCrouch.TabIndex = 16;
+            cbCrouch.Text = "Allow crouch";
+            cbCrouch.UseVisualStyleBackColor = true;
+            // 
+            // cbJump
+            // 
+            cbJump.AutoSize = true;
+            cbJump.Location = new Point(12, 150);
+            cbJump.Name = "cbJump";
+            cbJump.Size = new Size(87, 19);
+            cbJump.TabIndex = 15;
+            cbJump.Text = "Allow jump";
+            cbJump.UseVisualStyleBackColor = true;
+            // 
+            // cbTeam
+            // 
+            cbTeam.AutoSize = true;
+            cbTeam.Location = new Point(99, 125);
+            cbTeam.Name = "cbTeam";
+            cbTeam.Size = new Size(79, 19);
+            cbTeam.TabIndex = 14;
+            cbTeam.Text = "Team play";
+            cbTeam.UseVisualStyleBackColor = true;
+            // 
+            // cbAltDM
+            // 
+            cbAltDM.AutoSize = true;
+            cbAltDM.Location = new Point(12, 125);
+            cbAltDM.Name = "cbAltDM";
+            cbAltDM.Size = new Size(66, 19);
+            cbAltDM.TabIndex = 8;
+            cbAltDM.Text = "Alt. DM";
+            cbAltDM.UseVisualStyleBackColor = true;
+            // 
+            // numSkill
+            // 
+            numSkill.Location = new Point(150, 85);
+            numSkill.Maximum = new decimal(new int[] { 5, 0, 0, 0 });
+            numSkill.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            numSkill.Name = "numSkill";
+            numSkill.Size = new Size(45, 23);
+            numSkill.TabIndex = 13;
+            numSkill.Value = new decimal(new int[] { 1, 0, 0, 0 });
+            // 
+            // labelSkill
+            // 
+            labelSkill.AutoSize = true;
+            labelSkill.Location = new Point(157, 67);
+            labelSkill.Name = "labelSkill";
+            labelSkill.Size = new Size(31, 15);
+            labelSkill.TabIndex = 12;
+            labelSkill.Text = "Skill:";
+            // 
             // numMapNo
             // 
-            numMapNo.Location = new Point(82, 85);
+            numMapNo.Location = new Point(80, 85);
             numMapNo.Maximum = new decimal(new int[] { 99, 0, 0, 0 });
             numMapNo.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             numMapNo.Name = "numMapNo";
@@ -141,7 +208,7 @@
             // labelMapNo
             // 
             labelMapNo.AutoSize = true;
-            labelMapNo.Location = new Point(90, 67);
+            labelMapNo.Location = new Point(88, 67);
             labelMapNo.Name = "labelMapNo";
             labelMapNo.Size = new Size(34, 15);
             labelMapNo.TabIndex = 8;
@@ -149,7 +216,7 @@
             // 
             // numPlayers
             // 
-            numPlayers.Location = new Point(19, 85);
+            numPlayers.Location = new Point(12, 85);
             numPlayers.Maximum = new decimal(new int[] { 16, 0, 0, 0 });
             numPlayers.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             numPlayers.Name = "numPlayers";
@@ -160,7 +227,7 @@
             // labelPlayers
             // 
             labelPlayers.AutoSize = true;
-            labelPlayers.Location = new Point(19, 67);
+            labelPlayers.Location = new Point(12, 67);
             labelPlayers.Name = "labelPlayers";
             labelPlayers.Size = new Size(47, 15);
             labelPlayers.TabIndex = 8;
@@ -169,7 +236,7 @@
             // rbCoop
             // 
             rbCoop.AutoSize = true;
-            rbCoop.Location = new Point(106, 30);
+            rbCoop.Location = new Point(108, 30);
             rbCoop.Name = "rbCoop";
             rbCoop.Size = new Size(89, 19);
             rbCoop.TabIndex = 0;
@@ -180,7 +247,7 @@
             // rbDM
             // 
             rbDM.AutoSize = true;
-            rbDM.Location = new Point(10, 30);
+            rbDM.Location = new Point(12, 30);
             rbDM.Name = "rbDM";
             rbDM.Size = new Size(90, 19);
             rbDM.TabIndex = 0;
@@ -196,25 +263,6 @@
             labelMode.Size = new Size(75, 15);
             labelMode.TabIndex = 8;
             labelMode.Text = "Game mode:";
-            // 
-            // labelSkill
-            // 
-            labelSkill.AutoSize = true;
-            labelSkill.Location = new Point(151, 67);
-            labelSkill.Name = "labelSkill";
-            labelSkill.Size = new Size(31, 15);
-            labelSkill.TabIndex = 12;
-            labelSkill.Text = "Skill:";
-            // 
-            // numSkill
-            // 
-            numSkill.Location = new Point(144, 85);
-            numSkill.Maximum = new decimal(new int[] { 5, 0, 0, 0 });
-            numSkill.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
-            numSkill.Name = "numSkill";
-            numSkill.Size = new Size(45, 23);
-            numSkill.TabIndex = 13;
-            numSkill.Value = new decimal(new int[] { 1, 0, 0, 0 });
             // 
             // FormMain
             // 
@@ -235,9 +283,9 @@
             panelJoin.PerformLayout();
             panelHost.ResumeLayout(false);
             panelHost.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)numSkill).EndInit();
             ((System.ComponentModel.ISupportInitialize)numMapNo).EndInit();
             ((System.ComponentModel.ISupportInitialize)numPlayers).EndInit();
-            ((System.ComponentModel.ISupportInitialize)numSkill).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -260,5 +308,9 @@
         private Label labelMapNo;
         private NumericUpDown numSkill;
         private Label labelSkill;
+        private CheckBox cbCrouch;
+        private CheckBox cbJump;
+        private CheckBox cbTeam;
+        private CheckBox cbAltDM;
     }
 }

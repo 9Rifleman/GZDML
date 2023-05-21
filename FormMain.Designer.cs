@@ -42,10 +42,13 @@
             rbCoop = new RadioButton();
             rbDM = new RadioButton();
             labelMode = new Label();
+            labelSkill = new Label();
+            numSkill = new NumericUpDown();
             panelJoin.SuspendLayout();
             panelHost.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numMapNo).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numPlayers).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numSkill).BeginInit();
             SuspendLayout();
             // 
             // rbHost
@@ -111,6 +114,8 @@
             // panelHost
             // 
             panelHost.BorderStyle = BorderStyle.FixedSingle;
+            panelHost.Controls.Add(numSkill);
+            panelHost.Controls.Add(labelSkill);
             panelHost.Controls.Add(numMapNo);
             panelHost.Controls.Add(labelMapNo);
             panelHost.Controls.Add(numPlayers);
@@ -125,7 +130,7 @@
             // 
             // numMapNo
             // 
-            numMapNo.Location = new Point(106, 79);
+            numMapNo.Location = new Point(82, 85);
             numMapNo.Maximum = new decimal(new int[] { 99, 0, 0, 0 });
             numMapNo.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             numMapNo.Name = "numMapNo";
@@ -136,15 +141,15 @@
             // labelMapNo
             // 
             labelMapNo.AutoSize = true;
-            labelMapNo.Location = new Point(94, 61);
+            labelMapNo.Location = new Point(90, 67);
             labelMapNo.Name = "labelMapNo";
-            labelMapNo.Size = new Size(79, 15);
+            labelMapNo.Size = new Size(34, 15);
             labelMapNo.TabIndex = 8;
-            labelMapNo.Text = "Map number:";
+            labelMapNo.Text = "Map:";
             // 
             // numPlayers
             // 
-            numPlayers.Location = new Point(29, 79);
+            numPlayers.Location = new Point(19, 85);
             numPlayers.Maximum = new decimal(new int[] { 16, 0, 0, 0 });
             numPlayers.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             numPlayers.Name = "numPlayers";
@@ -155,7 +160,7 @@
             // labelPlayers
             // 
             labelPlayers.AutoSize = true;
-            labelPlayers.Location = new Point(29, 61);
+            labelPlayers.Location = new Point(19, 67);
             labelPlayers.Name = "labelPlayers";
             labelPlayers.Size = new Size(47, 15);
             labelPlayers.TabIndex = 8;
@@ -186,11 +191,30 @@
             // labelMode
             // 
             labelMode.AutoSize = true;
-            labelMode.Location = new Point(60, 12);
+            labelMode.Location = new Point(62, 12);
             labelMode.Name = "labelMode";
             labelMode.Size = new Size(75, 15);
             labelMode.TabIndex = 8;
             labelMode.Text = "Game mode:";
+            // 
+            // labelSkill
+            // 
+            labelSkill.AutoSize = true;
+            labelSkill.Location = new Point(151, 67);
+            labelSkill.Name = "labelSkill";
+            labelSkill.Size = new Size(31, 15);
+            labelSkill.TabIndex = 12;
+            labelSkill.Text = "Skill:";
+            // 
+            // numSkill
+            // 
+            numSkill.Location = new Point(144, 85);
+            numSkill.Maximum = new decimal(new int[] { 5, 0, 0, 0 });
+            numSkill.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            numSkill.Name = "numSkill";
+            numSkill.Size = new Size(45, 23);
+            numSkill.TabIndex = 13;
+            numSkill.Value = new decimal(new int[] { 1, 0, 0, 0 });
             // 
             // FormMain
             // 
@@ -213,6 +237,7 @@
             panelHost.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)numMapNo).EndInit();
             ((System.ComponentModel.ISupportInitialize)numPlayers).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numSkill).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -233,5 +258,7 @@
         private Label labelPlayers;
         private NumericUpDown numMapNo;
         private Label labelMapNo;
+        private NumericUpDown numSkill;
+        private Label labelSkill;
     }
 }

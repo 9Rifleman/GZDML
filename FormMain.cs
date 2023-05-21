@@ -38,13 +38,6 @@ namespace GZDML
             GetHostArgs();
             GetJoinArgs();
             string args = argHost + argMode + argMapNo + argFLimit + argTLimit + argAltDM + argJump + argCrouch + argNoMonsters;
-
-            string x = @"C:\Users\Rifleman\Desktop\gzdml.txt";
-            using (StreamWriter writer = new StreamWriter(x))
-            {
-                writer.WriteLine(args);
-            }
-
             if (rbHost.Checked)
                 Process.Start(appPath, args);
             else

@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             rbHost = new RadioButton();
             rbJoin = new RadioButton();
             labelIPJ = new Label();
@@ -53,6 +52,11 @@
             rbCoop = new RadioButton();
             rbDM = new RadioButton();
             labelMode = new Label();
+            buttonPWAD1 = new Button();
+            openPWAD = new OpenFileDialog();
+            buttonPWAD2 = new Button();
+            labelPWAD = new Label();
+            panelPWAD = new Panel();
             panelJoin.SuspendLayout();
             panelHost.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numTLimit).BeginInit();
@@ -60,6 +64,7 @@
             ((System.ComponentModel.ISupportInitialize)numSkill).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numMapNo).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numPlayers).BeginInit();
+            panelPWAD.SuspendLayout();
             SuspendLayout();
             // 
             // rbHost
@@ -87,7 +92,7 @@
             // labelIPJ
             // 
             labelIPJ.AutoSize = true;
-            labelIPJ.Location = new Point(76, 7);
+            labelIPJ.Location = new Point(80, 7);
             labelIPJ.Name = "labelIPJ";
             labelIPJ.Size = new Size(63, 15);
             labelIPJ.TabIndex = 3;
@@ -95,7 +100,7 @@
             // 
             // buttonStart
             // 
-            buttonStart.Location = new Point(90, 369);
+            buttonStart.Location = new Point(89, 452);
             buttonStart.Name = "buttonStart";
             buttonStart.Size = new Size(75, 23);
             buttonStart.TabIndex = 4;
@@ -118,7 +123,7 @@
             panelJoin.BorderStyle = BorderStyle.FixedSingle;
             panelJoin.Controls.Add(tbIP);
             panelJoin.Controls.Add(labelIPJ);
-            panelJoin.Location = new Point(13, 305);
+            panelJoin.Location = new Point(12, 307);
             panelJoin.Name = "panelJoin";
             panelJoin.Size = new Size(234, 58);
             panelJoin.TabIndex = 6;
@@ -145,7 +150,7 @@
             panelHost.Controls.Add(labelMode);
             panelHost.Location = new Point(13, 39);
             panelHost.Name = "panelHost";
-            panelHost.Size = new Size(234, 260);
+            panelHost.Size = new Size(234, 262);
             panelHost.TabIndex = 7;
             // 
             // numTLimit
@@ -310,20 +315,66 @@
             labelMode.TabIndex = 8;
             labelMode.Text = "Game mode:";
             // 
+            // buttonPWAD1
+            // 
+            buttonPWAD1.Location = new Point(12, 31);
+            buttonPWAD1.Name = "buttonPWAD1";
+            buttonPWAD1.Size = new Size(103, 23);
+            buttonPWAD1.TabIndex = 8;
+            buttonPWAD1.Text = "PWAD 1";
+            buttonPWAD1.UseVisualStyleBackColor = true;
+            buttonPWAD1.Click += buttonPWAD1_Click;
+            // 
+            // openPWAD
+            // 
+            openPWAD.FileName = "openFileDialog1";
+            // 
+            // buttonPWAD2
+            // 
+            buttonPWAD2.Location = new Point(121, 31);
+            buttonPWAD2.Name = "buttonPWAD2";
+            buttonPWAD2.Size = new Size(101, 23);
+            buttonPWAD2.TabIndex = 22;
+            buttonPWAD2.Text = "PWAD 2";
+            buttonPWAD2.UseVisualStyleBackColor = true;
+            buttonPWAD2.Click += buttonPWAD2_Click;
+            // 
+            // labelPWAD
+            // 
+            labelPWAD.AutoSize = true;
+            labelPWAD.Location = new Point(94, 13);
+            labelPWAD.Name = "labelPWAD";
+            labelPWAD.Size = new Size(49, 15);
+            labelPWAD.TabIndex = 23;
+            labelPWAD.Text = "PWADs:";
+            labelPWAD.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // panelPWAD
+            // 
+            panelPWAD.BorderStyle = BorderStyle.FixedSingle;
+            panelPWAD.Controls.Add(labelPWAD);
+            panelPWAD.Controls.Add(buttonPWAD2);
+            panelPWAD.Controls.Add(buttonPWAD1);
+            panelPWAD.Location = new Point(12, 371);
+            panelPWAD.Name = "panelPWAD";
+            panelPWAD.Size = new Size(234, 69);
+            panelPWAD.TabIndex = 8;
+            // 
             // FormMain
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(259, 401);
+            ClientSize = new Size(259, 483);
+            Controls.Add(panelPWAD);
             Controls.Add(panelHost);
             Controls.Add(panelJoin);
             Controls.Add(buttonStart);
             Controls.Add(rbJoin);
             Controls.Add(rbHost);
             FormBorderStyle = FormBorderStyle.FixedSingle;
-            Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
             Name = "FormMain";
+            ShowIcon = false;
             StartPosition = FormStartPosition.CenterScreen;
             Text = "GZDML";
             panelJoin.ResumeLayout(false);
@@ -335,6 +386,8 @@
             ((System.ComponentModel.ISupportInitialize)numSkill).EndInit();
             ((System.ComponentModel.ISupportInitialize)numMapNo).EndInit();
             ((System.ComponentModel.ISupportInitialize)numPlayers).EndInit();
+            panelPWAD.ResumeLayout(false);
+            panelPWAD.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -365,5 +418,10 @@
         private Label labelFLimit;
         private NumericUpDown numTLimit;
         private NumericUpDown numFLimit;
+        private OpenFileDialog openPWAD;
+        private Button buttonPWAD1;
+        private Button buttonPWAD2;
+        private Label labelPWAD;
+        private Panel panelPWAD;
     }
 }

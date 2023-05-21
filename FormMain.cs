@@ -22,6 +22,8 @@ namespace GZDML
         public string argFLimit = string.Empty;
         public string argTLimit = string.Empty;
         public string argNoMonsters = string.Empty;
+        public string argPWAD1 = string.Empty;
+        public string argPWAD2 = string.Empty;
 
         public FormMain()
         {
@@ -29,6 +31,9 @@ namespace GZDML
             HostGameDisable();
             JoinGameDisable();
             buttonStart.Visible = false;
+            buttonPWAD1.Enabled = false;
+            buttonPWAD2.Enabled = false;
+            labelPWAD.Enabled = false;
         }
 
         private void buttonStart_Click(object sender, EventArgs e)
@@ -37,11 +42,14 @@ namespace GZDML
             string appPath = Path.Combine(GZDPath, "gzdoom.exe");
             GetHostArgs();
             GetJoinArgs();
-            string args = argHost + argMode + argMapNo + argFLimit + argTLimit + argAltDM + argJump + argCrouch + argNoMonsters;
+            string args = argHost + argMode + argMapNo + argFLimit + argTLimit + argAltDM + argJump + argCrouch + argNoMonsters + argPWAD1 + argPWAD2;
+
+            File.WriteAllText(@"C:\Users\Rifleman\Desktop\fff.txt", args);
+            
             if (rbHost.Checked)
                 Process.Start(appPath, args);
             else
-                Process.Start(appPath, "-join " + argIP);
+                Process.Start(appPath, "-join " + argIP + argPWAD1 + argPWAD2);
             this.Close();
         }
 
@@ -115,6 +123,7 @@ namespace GZDML
             labelSkill.Enabled = true;
             labelFLimit.Enabled = true;
             labelTLimit.Enabled = true;
+            labelPWAD.Enabled = true;
             rbDM.Enabled = true;
             numPlayers.Enabled = true;
             numMapNo.Enabled = true;
@@ -124,6 +133,8 @@ namespace GZDML
             rbCoop.Enabled = true;
             buttonStart.Visible = true;
             buttonStart.Text = "Host game";
+            buttonPWAD1.Enabled = true;
+            buttonPWAD2.Enabled = true;
             cbAltDM.Enabled = true;
             cbCrouch.Enabled = true;
             cbJump.Enabled = true;
@@ -156,9 +167,12 @@ namespace GZDML
             //labelIPJ.Enabled = true;
             tbIP.Enabled = true;
             labelIPJ.Text = "IP address:";
+            labelPWAD.Enabled = true;
             tbIP.Text = string.Empty;
             buttonStart.Visible = true;
             buttonStart.Text = "Join game";
+            buttonPWAD1.Enabled = true;
+            buttonPWAD2.Enabled = true;
         }
 
         private void JoinGameDisable()
@@ -194,6 +208,28 @@ namespace GZDML
             {
                 HostGameEnable();
                 JoinGameDisable();
+            }
+        }
+
+        private void buttonPWAD1_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog pwad = new OpenFileDialog();
+            if (pwad.ShowDialog() == DialogResult.OK)
+            {
+                argPWAD1 = pwad.FileName;
+                buttonPWAD1.Text = Path.GetFileName(argPWAD1);
+                argPWAD1 = " -file " + pwad.FileName;
+            }
+        }
+
+        private void buttonPWAD2_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog pwad = new OpenFileDialog();
+            if (pwad.ShowDialog() == DialogResult.OK)
+            {
+                argPWAD2 = pwad.FileName;
+                buttonPWAD2.Text = Path.GetFileName(argPWAD2);
+                argPWAD2 = " -file " + pwad.FileName;
             }
         }
     }

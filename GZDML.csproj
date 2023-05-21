@@ -7,11 +7,15 @@
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
     <FileVersion>0.1</FileVersion>
-    <ApplicationIcon>GZDML.ico</ApplicationIcon>
+    <ApplicationIcon>HH.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="GZDML.ico" />
+    <Content Include="HH.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Resources\" />
   </ItemGroup>
 
 </Project>

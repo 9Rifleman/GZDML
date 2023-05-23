@@ -1,10 +1,5 @@
-using System;
 using System.Diagnostics;
-using System.IO;
-using System.Net;
-using System.Net.Sockets;
 using System.Net.NetworkInformation;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace GZDML
 {
@@ -22,42 +17,54 @@ namespace GZDML
         public string argFLimit = string.Empty;
         public string argTLimit = string.Empty;
         public string argNoMonsters = string.Empty;
+        public string argIWAD = string.Empty;
         public string argPWAD1 = string.Empty;
         public string argPWAD2 = string.Empty;
 
         public FormMain()
         {
             InitializeComponent();
+            FindIWADS();
             HostGameDisable();
             JoinGameDisable();
+
+            if (comboxIWAD.SelectedItem == null && File.Exists(Directory.GetCurrentDirectory() + "\"" + "doom2.wad"))
+                comboxIWAD.SelectedItem = "DOOM 2";
+
             buttonStart.Visible = false;
             buttonPWAD1.Enabled = false;
             buttonPWAD2.Enabled = false;
             labelPWAD.Enabled = false;
+            labelIWAD.Enabled = false;
+            cbClose.Visible = false;
+            comboxIWAD.Enabled = false;
         }
 
         private void buttonStart_Click(object sender, EventArgs e)
         {
-            string GZDPath = Directory.GetCurrentDirectory();
-            string appPath = Path.Combine(GZDPath, "gzdoom.exe");
             GetHostArgs();
             GetJoinArgs();
-            string args = argHost + argMode + argMapNo + argFLimit + argTLimit + argAltDM + argJump + argCrouch + argNoMonsters + argPWAD1 + argPWAD2;
 
-            File.WriteAllText(@"C:\Users\Rifleman\Desktop\fff.txt", args);
-            
+            string GZDPath = Directory.GetCurrentDirectory();
+            string appPath = Path.Combine(GZDPath, "gzdoom.exe");
+            string args = "-iwad " + argIWAD + " -file " + argPWAD1 + argPWAD2 + argHost + argMode + argMapNo + argFLimit + argTLimit + argAltDM + argJump + argCrouch + argNoMonsters;
+            string args2 = "-iwad" + argIWAD + " -file " + argPWAD1 + argPWAD2 + " -join " + argIP;
+            //File.WriteAllText(@"C:\args_log.txt", args);    //Log
+
             if (rbHost.Checked)
                 Process.Start(appPath, args);
             else
-                Process.Start(appPath, "-join " + argIP + argPWAD1 + argPWAD2);
-            this.Close();
+                Process.Start(appPath, args2);
+
+            if (cbClose.Checked)
+                this.Close();
         }
 
         private void GetHostArgs()
         {
             if (rbHost.Checked)
             {
-                argHost = "-host " + numPlayers.Value.ToString();   //Host & Players
+                argHost = " -host " + numPlayers.Value.ToString();   //Host & Players
 
                 if (rbDM.Checked)                                   //Mode
                     argMode = " -deathmatch";
@@ -86,9 +93,29 @@ namespace GZDML
 
                 if (cbMonsters.Checked)                             //No monsters
                     argNoMonsters = " +sv_nomonsters 1";
+           
+                switch (comboxIWAD.SelectedItem)
+                {
+                    case "DOOM":
+                        argIWAD = "doom.wad";
+                        break;
+                    case "DOOM 2":
+                        argIWAD = "doom 2.wad";
+                        break;
+                    case "Heretic":
+                        argIWAD = "heretic.wad";
+                        break;
+                    case "Hexen":
+                        argIWAD = "hexen.wad";
+                        break;
+                    case "Hexen DD":
+                        argIWAD = "hexdd.wad";
+                        break;
+                    case "Strife":
+                        argIWAD = "strife1.wad";
+                        break;
+                }
             }
-            else
-                return;
         }
 
         private void GetJoinArgs()
@@ -124,6 +151,7 @@ namespace GZDML
             labelFLimit.Enabled = true;
             labelTLimit.Enabled = true;
             labelPWAD.Enabled = true;
+            labelIWAD.Enabled = true;
             rbDM.Enabled = true;
             numPlayers.Enabled = true;
             numMapNo.Enabled = true;
@@ -139,6 +167,8 @@ namespace GZDML
             cbCrouch.Enabled = true;
             cbJump.Enabled = true;
             cbMonsters.Enabled = true;
+            cbClose.Visible = true;
+            comboxIWAD.Enabled = true;
         }
 
         private void HostGameDisable()
@@ -168,11 +198,14 @@ namespace GZDML
             tbIP.Enabled = true;
             labelIPJ.Text = "IP address:";
             labelPWAD.Enabled = true;
+            labelIWAD.Enabled = true;
             tbIP.Text = string.Empty;
             buttonStart.Visible = true;
             buttonStart.Text = "Join game";
             buttonPWAD1.Enabled = true;
             buttonPWAD2.Enabled = true;
+            cbClose.Visible = true;
+            comboxIWAD.Enabled = true;
         }
 
         private void JoinGameDisable()
@@ -218,7 +251,9 @@ namespace GZDML
             {
                 argPWAD1 = pwad.FileName;
                 buttonPWAD1.Text = Path.GetFileName(argPWAD1);
-                argPWAD1 = " -file " + pwad.FileName;
+                argPWAD1 = buttonPWAD1.Text;
+                if (argPWAD1.Contains(" "))
+                    argPWAD1 = "\"" + argPWAD1 + "\"";
             }
         }
 
@@ -229,8 +264,27 @@ namespace GZDML
             {
                 argPWAD2 = pwad.FileName;
                 buttonPWAD2.Text = Path.GetFileName(argPWAD2);
-                argPWAD2 = " -file " + pwad.FileName;
+                argPWAD2 = buttonPWAD2.Text;
+                if (argPWAD2.Contains(" "))
+                    argPWAD2 = "\"" + argPWAD2 + "\"";
             }
+        }
+
+        private void FindIWADS()
+        {
+            string iwadPath = Directory.GetCurrentDirectory();
+            if (File.Exists("doom.wad"))
+                comboxIWAD.Items.Add("DOOM");
+            if (File.Exists("doom2.wad"))
+                comboxIWAD.Items.Add("DOOM 2");
+            if (File.Exists("heretic.wad"))
+                comboxIWAD.Items.Add("Heretic");
+            if (File.Exists("hexen.wad"))
+                comboxIWAD.Items.Add("Hexen");
+            if (File.Exists("hexdd.wad"))
+                comboxIWAD.Items.Add("Hexen DD");
+            if (File.Exists("strife1.wad"))
+                comboxIWAD.Items.Add("Strife");
         }
     }
 }

@@ -28,9 +28,6 @@ namespace GZDML
             HostGameDisable();
             JoinGameDisable();
 
-            if (comboxIWAD.SelectedItem == null && File.Exists(Directory.GetCurrentDirectory() + "\"" + "doom2.wad"))
-                comboxIWAD.SelectedItem = "DOOM 2";
-
             buttonStart.Visible = false;
             buttonPWAD1.Enabled = false;
             buttonPWAD2.Enabled = false;
@@ -93,7 +90,7 @@ namespace GZDML
 
                 if (cbMonsters.Checked)                             //No monsters
                     argNoMonsters = " +sv_nomonsters 1";
-           
+
                 switch (comboxIWAD.SelectedItem)
                 {
                     case "DOOM":

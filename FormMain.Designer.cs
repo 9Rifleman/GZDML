@@ -121,10 +121,10 @@
             // tbIP
             // 
             tbIP.BorderStyle = BorderStyle.FixedSingle;
-            tbIP.Location = new Point(38, 25);
+            tbIP.Location = new Point(54, 25);
             tbIP.MaxLength = 15;
             tbIP.Name = "tbIP";
-            tbIP.Size = new Size(150, 23);
+            tbIP.Size = new Size(121, 23);
             tbIP.TabIndex = 5;
             tbIP.TextAlign = HorizontalAlignment.Center;
             // 
@@ -415,9 +415,7 @@
             // cbClose
             // 
             cbClose.AutoSize = true;
-            cbClose.Checked = true;
-            cbClose.CheckState = CheckState.Checked;
-            cbClose.Location = new Point(134, 532);
+            cbClose.Location = new Point(130, 534);
             cbClose.Name = "cbClose";
             cbClose.Size = new Size(108, 19);
             cbClose.TabIndex = 10;
